@@ -1,3 +1,52 @@
 = Bookshelf
 
+An engine for managing projects for the R102 Estimator.
+
+To include in your application:
+
+   Installing migrations:
+
+        After adding the gem file to your application, you will need to migrate your database. However, first you
+        must install the migrations, in order to copy the migration into your applications migration directory. In
+        order to do that, run the following command:
+
+            rake bookshelf:install:migrations
+
+   Mounting the engine to your application routes
+
+        You will need to mount the engine by adding the following line to your config/routes.rb file:
+
+            mount Bookshelf::Engine => "/bookshelf"
+
+        The above line was copied from the dummy application, located in test/dummy/config/routes.rb
+
+   Using the URL helpers from inside the engine.
+
+        The URL helper "root_url" can be used to create a link tag to the root url OF THE ENGINE.
+
+            link_to "Home Page", root_url
+
+        To add a link to the main application's home page, use the "main_app" prefix instead:
+
+            link_to "Home Page", main_app.root_url
+
+   Using URL helpers from inside the main application.
+
+        Step 1: modify the route line where you mounted the engine and specify what you want to call the engine:
+
+            mount Bookshelf::Engine => "/bookshelf", :as => "bookshelf_engine"
+
+        Step 2: now you can use helpers to generate any URL you need, for example:
+
+            redirect_to bookshelf_engine.root_url
+
+        Note that there is nothing "magic" about calling it "bookshelf_engine". You can call it whatever you want.
+
+   Assets
+
+        The asset pipeline is available, inside the "bookshelf" namespace. For example, to access an image just use:
+
+            image_tag "bookshelf/some_image.png"
+
+
 This project rocks and uses MIT-LICENSE.

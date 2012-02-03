@@ -1,0 +1,11 @@
+!!!
+%html
+%head
+  %title>Bookshelf
+  = stylesheet_link_tag    "bookshelf/application"
+  = javascript_include_tag "bookshelf/application"
+  = csrf_meta_tags
+
+%body
+  = yield
+

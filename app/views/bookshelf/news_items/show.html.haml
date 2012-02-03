@@ -1,0 +1,17 @@
+%p#notice= notice
+
+%p
+  %b Subject:
+  = @news_item.subject
+
+%p
+  %b Content:
+  = @news_item.content
+
+%p
+  %b Publish at:
+  = @news_item.publish_at
+
+= link_to 'Edit', edit_news_item_path(@news_item)
+\|
+= link_to 'Back', news_items_path
