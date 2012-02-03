@@ -9,5 +9,10 @@ module Bookshelf
       g.view_specs false
       g.helper_specs false
     end
+
+    initializer 'bookshelf.routes_helper' do |app|
+      ActionView::Base.send(:include, Bookshelf::RoutesHelper)
+    end
+
   end
 end
