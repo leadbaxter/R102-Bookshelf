@@ -9,7 +9,7 @@ module Bookshelf
     def index
       respond_to do |format|
         format.html # index.html.haml
-        format.json { render json: @news_items }
+        format.json { render :json => @news_items }
       end
     end
   
@@ -18,7 +18,7 @@ module Bookshelf
     def show
       respond_to do |format|
         format.html # show.html.erb
-        format.json { render json: @news_item }
+        format.json { render :json => @news_item }
       end
     end
   
@@ -27,7 +27,7 @@ module Bookshelf
     def new
       respond_to do |format|
         format.html # new.html.haml
-        format.json { render json: @news_item }
+        format.json { render :json => @news_item }
       end
     end
   
@@ -40,11 +40,11 @@ module Bookshelf
     def create
       respond_to do |format|
         if @news_item.save
-          format.html { redirect_to @news_item, notice: 'News item was successfully created.' }
-          format.json { render json: @news_item, status: :created, location: @news_item }
+          format.html { redirect_to @news_item, :notice => 'News item was successfully created.' }
+          format.json { render :json => @news_item, :status => :created, :location => @news_item }
         else
           format.html { render action: "new" }
-          format.json { render json: @news_item.errors, status: :unprocessable_entity }
+          format.json { render :json => @news_item.errors, :status => :unprocessable_entity }
         end
       end
     end
@@ -54,11 +54,11 @@ module Bookshelf
     def update
       respond_to do |format|
         if @news_item.update_attributes(params[:news_item])
-          format.html { redirect_to @news_item, notice: 'News item was successfully updated.' }
+          format.html { redirect_to @news_item, :notice => 'News item was successfully updated.' }
           format.json { head :ok }
         else
           format.html { render action: "edit" }
-          format.json { render json: @news_item.errors, status: :unprocessable_entity }
+          format.json { render :json => @news_item.errors, :status => :unprocessable_entity }
         end
       end
     end
