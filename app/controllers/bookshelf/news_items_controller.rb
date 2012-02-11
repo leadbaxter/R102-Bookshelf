@@ -1,10 +1,12 @@
 module Bookshelf
+
   class NewsItemsController < ApplicationController
+
+    load_and_authorize_resource
+
     # GET /news_items
     # GET /news_items.json
     def index
-      @news_items = NewsItem.all
-  
       respond_to do |format|
         format.html # index.html.haml
         format.json { render json: @news_items }
@@ -14,8 +16,6 @@ module Bookshelf
     # GET /news_items/1
     # GET /news_items/1.json
     def show
-      @news_item = NewsItem.find(params[:id])
-  
       respond_to do |format|
         format.html # show.html.erb
         format.json { render json: @news_item }
@@ -25,8 +25,6 @@ module Bookshelf
     # GET /news_items/new
     # GET /news_items/new.json
     def new
-      @news_item = NewsItem.new
-  
       respond_to do |format|
         format.html # new.html.haml
         format.json { render json: @news_item }
@@ -35,14 +33,11 @@ module Bookshelf
   
     # GET /news_items/1/edit
     def edit
-      @news_item = NewsItem.find(params[:id])
     end
   
     # POST /news_items
     # POST /news_items.json
     def create
-      @news_item = NewsItem.new(params[:news_item])
-  
       respond_to do |format|
         if @news_item.save
           format.html { redirect_to @news_item, notice: 'News item was successfully created.' }
@@ -57,8 +52,6 @@ module Bookshelf
     # PUT /news_items/1
     # PUT /news_items/1.json
     def update
-      @news_item = NewsItem.find(params[:id])
-  
       respond_to do |format|
         if @news_item.update_attributes(params[:news_item])
           format.html { redirect_to @news_item, notice: 'News item was successfully updated.' }
@@ -73,7 +66,6 @@ module Bookshelf
     # DELETE /news_items/1
     # DELETE /news_items/1.json
     def destroy
-      @news_item = NewsItem.find(params[:id])
       @news_item.destroy
   
       respond_to do |format|

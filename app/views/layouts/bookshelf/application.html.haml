@@ -1,7 +1,7 @@
 - conditional_html do
-  - head_locals = { :title => 'R102 Estimator' }
+  - head_locals = { :title => 'Bookshelf' }
   %head
-    =# render :partial => 'shared/head', :locals => head_locals
+    = render :partial => 'shared/head', :locals => head_locals
     %title Bookshelf
     = stylesheet_link_tag    "bookshelf/application"
     = javascript_include_tag "bookshelf/application"
