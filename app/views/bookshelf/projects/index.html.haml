@@ -1,4 +1,4 @@
-%h1 Listing projects
+%h1 Projects
 
 %table
   %tr
@@ -6,6 +6,7 @@
     %th Created by
     %th Content
     %th Archived
+    %th Created at
     %th
     %th
     %th
@@ -16,10 +17,10 @@
       %td= project.created_by
       %td= project.content_id
       %td= project.archived
+      %td= project.created_at
       %td= link_to 'Show', project
       %td= link_to 'Edit', edit_project_path(project)
       %td= link_to 'Destroy', project, :confirm => 'Are you sure?', :method => :delete
 
 %br
-
 = link_to 'New Project', new_project_path

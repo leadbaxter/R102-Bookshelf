@@ -1,11 +1,12 @@
-!!!
-%html
-%head
-  %title>Bookshelf
-  = stylesheet_link_tag    "bookshelf/application"
-  = javascript_include_tag "bookshelf/application"
-  = csrf_meta_tags
+- conditional_html do
+  - head_locals = { :title => 'R102 Estimator' }
+  %head
+    =# render :partial => 'shared/head', :locals => head_locals
+    %title Bookshelf
+    = stylesheet_link_tag    "bookshelf/application"
+    = javascript_include_tag "bookshelf/application"
+    = csrf_meta_tags
 
-%body
-  = yield
+  %body
+    = yield
 

@@ -7,13 +7,13 @@ require "bookshelf/version"
 Gem::Specification.new do |s|
   s.name        = "bookshelf"
   s.version     = Bookshelf::VERSION
-  s.authors     = ["brian jackson"]
-  s.email       = ["brianj@leadbaxter.com"]
+  s.authors     = ["Brian Jackson"]
+  s.email       = %w(brianj@leadbaxter.com)
   s.homepage    = "http://r102estimator.com"
   s.summary     = "Manage R102 Estimator projects."
-  s.description = "A mountable Rails engine used to manage project files for the R102 Estimator web server."
+  s.description = "Mountable Rails engine used to manage project files for the R102 Estimator web server."
 
-  s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.rdoc"]
+  s.files = Dir["{app,config,db,lib}/**/*"] + %w(MIT-LICENSE Rakefile README.rdoc)
   s.test_files = Dir["test/**/*"]
 
   s.add_dependency "rails", "~> 3.1.3"
