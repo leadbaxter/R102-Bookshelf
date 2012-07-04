@@ -2,7 +2,7 @@ module Bookshelf
 
   class NewsItemsController < ApplicationController
 
-    load_and_authorize_resource
+    load_and_authorize_resource :class => 'Bookshelf::NewsItem'
 
     # GET /news_items
     # GET /news_items.json
