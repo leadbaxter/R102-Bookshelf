@@ -2,7 +2,8 @@ module Bookshelf
 
   class ProjectsController < ApplicationController
 
-    load_and_authorize_resource # cancan authorizes that the user has access to the project resources
+    # cancan authorizes that the user has access to the project resources
+    load_and_authorize_resource :class => BookShelf::Project
 
     # GET /projects
     # GET /projects.json
