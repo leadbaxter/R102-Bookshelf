@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    bookshelf (0.0.2)
+    bookshelf (0.0.3)
       cancan
       haml-rails (>= 0.3.4)
       rails (~> 3.1.3)
