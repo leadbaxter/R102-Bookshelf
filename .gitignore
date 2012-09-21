@@ -1,6 +1,130 @@
-.bundle/
-log/*.log
-pkg/
-test/dummy/db/*.sqlite3
-test/dummy/log/*.log
-test/dummy/tmp/
+.rvmrc
+
+#-------------------------------------------------------------------------------------------
+# Ignore these files when committing to a git repository
+#
+# The original version of this file is found here:
+# https://github.com/RailsApps/rails3-application-templates/raw/master/files/gitignore.txt
+#
+# Corrections? Improvements? Create a GitHub issue: 
+# http://github.com/RailsApps/rails3-application-templates/issues
+#-------------------------------------------------------------------------------------------
+
+# bundler state
+/.bundle
+/vendor/bundle/
+
+# Ignore all logfiles and tempfiles.
+/log/*.log
+/tmp
+*.log
+tmp
+tmp/**/*
+
+# minimal Rails specific artifacts
+db/*.sqlite3
+/db/*.sqlite3
+db/*.sqlite3-journal
+
+# Documentation
+doc/api
+doc/app
+/doc/features.html
+/doc/specs.html
+.yardoc
+.yardopts
+
+# Public Uploads
+public/system/*
+public/themes/*
+
+# Public Cache
+public/javascripts/cache
+public/stylesheets/cache
+/public/cache
+/public/stylesheets/compiled
+/public/system
+
+# Vendor Cache
+vendor/cache
+
+# various artifacts
+**.war
+*.rbc
+*.sassc
+.rspec
+/config/config.yml
+/config/database.yml
+/coverage.data
+/coverage/
+/db/*.javadb/
+/db/*.sqlite3-journal
+/spec/tmp/*
+/cache
+/gems
+/rerun.txt
+/spec/requests
+/spec/routing
+/spec/views
+/specifications
+
+# scm revert files
+**.orig
+
+# Mac finder artifacts
+.DS_Store
+
+# Windows
+Thumbs.db
+
+# Backup
+*~
+
+# Eclipse
+.project
+
+# E-texteditor
+.eprj
+
+# Netbeans project directory
+/nbproject/
+nbproject
+
+# Textmate project files
+/*.tmproj
+
+# vim artifacts
+**.swp
+*.swp
+*.swo
+
+# Acts as Indexed
+index/**/*
+
+# Capybara Bug
+/capybara*
+/capybara-*.html
+
+# Refinery Specific
+*.tmproj
+*.autobackupbyrefinery.*
+refinerycms-*.gem
+.autotest
+
+# Redcar
+.redcar
+
+# Rubinius
+*.rbc
+
+# RubyMine
+.idea
+*.dat
+
+#rvm
+.rvmrc
+.rvmrc.*
+
+# sass
+.sass-cache
+.sass-cache/*

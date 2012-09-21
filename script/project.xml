@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+  <metadata>
+    <owner><name>Brian Jackson</name><id>22</id></owner>
+    <project><name>XYZ Project</name><id>6</id></project>
+  </metadata>
+  <updateLog value="Thu Sep 20 14:12:13 GMT-0500 2012: remoteReleasePN
+Thu Sep 20 14:12:13 GMT-0500 2012: fryer290newC
+Thu Sep 20 14:12:13 GMT-0500 2012: 1000to1Wb
+Thu Sep 20 14:12:13 GMT-0500 2012: updateSystemGroups051018b
+Thu Sep 20 14:12:13 GMT-0500 2012: swivelUpdateE
+Thu Sep 20 14:12:13 GMT-0500 2012: overlappingSettings050429
+Thu Sep 20 14:12:13 GMT-0500 2012: salamanderUpdate050412c
+Thu Sep 20 14:12:13 GMT-0500 2012: detectorUpdate050128b
+Thu Sep 20 14:12:13 GMT-0500 2012: XMLpartName050127c
+Thu Sep 20 14:12:13 GMT-0500 2012: detectorPN080920c
+Thu Sep 20 14:12:13 GMT-0500 2012: griddleLowProximity1W
+Thu Sep 20 14:12:13 GMT-0500 2012: DukeBroiler2Wd
+Thu Sep 20 14:12:13 GMT-0500 2012: RangeLowProx1NnoteFix
+Thu Sep 20 14:12:13 GMT-0500 2012: DukeNiecoBroilerNewNozzles
+Thu Sep 20 14:12:13 GMT-0500 2012: HennyPennyNewModels
+Thu Sep 20 14:12:13 GMT-0500 2012: RemoteReleaseCartridgeB
+Thu Sep 20 14:12:13 GMT-0500 2012: FryerModuleCalcUpdateV
+Thu Sep 20 14:12:13 GMT-0500 2012: Range1FCombine
+Thu Sep 20 14:12:13 GMT-0500 2012: HPnozzleNoteFix
+Thu Sep 20 14:12:13 GMT-0500 2012: DukeNiecoToChain
+" type="string" />
+  <components value="" constr="Array" type="object" />
+</project>
