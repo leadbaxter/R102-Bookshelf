@@ -35,23 +35,13 @@ module Bookshelf
     end
 
     # POST /project_contents
-    # POST /project_contents.json
-    def x_create
-      @project = Project.find(params[:project_id])
-      @body = @project.contents.create(params[:content])
-      redirect_to project_path(@project)
-    end
-
+    # POST /project_contents.xml
     def create
-      #t.references :project
-      #t.string :created_by  # user email
-      #t.text :body
-      #t.text :comments
-      @project = find_project
+      saved = save_project
       respond_to do |format|
         format.xml {
-          if save_content
-            render :text => @content.body, :content_type => 'application/xml'
+          if saved
+            render :xml => @result.to_xml(root: 'project')
           else
             render :text => @errors_xml, :status => :unprocessable_entity
           end
@@ -60,104 +50,78 @@ module Bookshelf
     end
 
   private
-    def clip_value sym, init_obj, fld
-      param_obj = params[:project][:metadata][sym]
-      @project_metadata[sym][fld] = param_obj[fld]
-      if fld == :id and param_obj[fld] == init_obj[fld]
-        @project_metadata[sym][:new] = true
-      end
+    def project_metadata
+      params[:project][:metadata]
     end
 
-    def clip_object sym
-      (@project_metadata ||= {})[sym] = {}
-      init_obj = {
-          id: "**cloud_#{sym}_id**", name: "**cloud #{sym}**"
-      }
-      clip_value(sym, init_obj, :id)
-      clip_value(sym, init_obj, :name)
+    def meta_project
+      project_metadata[:project]
     end
 
-    # Process the params. Indicate an error if the params don't have project metadata.
+    def meta_owner
+      project_metadata[:owner]
+    end
+
+    def project_mod_date
+      params[:project].try(:[], :modDate).try(:[], :value)
+    end
+
+    # Process the params. Set the error indicator if the params don't have project metadata.
     def check_params
-      if params[:project] and params[:project][:metadata]
+      if params[:project] and project_metadata
         @project_xml = request.body.read
-        #params[:project][:metadata][:project][:id] = 16
-        clip_object :project
-        clip_object :owner
-        meta_owner = @project_metadata[:owner]
-        meta_project = @project_metadata[:project]
         puts "project metadata [owner_id=#{meta_owner[:id]}, owner_name=#{meta_owner[:name]}, project_id=#{meta_project[:id]}, project_name=#{meta_project[:name]}]"
-        puts "this is a new project" if @project_metadata[:project][:new]
         @errors_xml = nil
       else
         @errors_xml = "error: project metadata is absent!"
       end
     end
 
-    def find_project
-      if @errors_xml.present?
-        nil
-      else
-        meta_owner = @project_metadata[:owner]
-        meta_project = @project_metadata[:project]
-        if meta_project[:new]
-          #t.string :name
-          #t.string :created_by
-          #t.string :content_id
-          #t.boolean :archived
-          Bookshelf::Project.new({ name: meta_project[:name], created_by: meta_owner[:id]})
-        else
-          Bookshelf::Project.find(meta_project[:id])
-        end
-      end
-    end
-
-    # Update the project's xml representation with the obj's project/owner id and name, if the project metadata
-    # indicates the project (in params) was a new project.
-    def update_xml sym, obj
-      obj.each do |k,v|
-        the_metadata = @project_metadata[sym]
-        if the_metadata[:new]
-          pat = the_metadata[k].to_s.gsub /\*/, '\*'
-          @project_xml.sub! /#{pat}/, v.to_s
-        end
-      end
-    end
-
-    # If the project is new, save it and update the xml to reflect the project.id; otherwise do nothing.
+    # If the project needs to be saved, save it
     def save_project
-      if !@project.new_record?
-        true
+      @result = {}
+      if find_project
+        @result.merge!("new_project_inserted" => true) if @project.new_record?
+        init_project_mod_date
+        @project.save and save_content
+      end
+    end
+
+    # Answer the project found identified by the project number, creating a new one if necessary.
+    def find_project
+      unless @errors_xml.present?
+        @project = Bookshelf::Project.find_by_project_number(meta_project[:id]) || Bookshelf::Project.new({
+            project_number: meta_project[:id],
+            project_name: meta_project[:name],
+            created_by: meta_owner[:id]
+        })
+      end
+    end
+
+    # Answer true if the project's mod_date is out of date in respect to the mod_date of the POSTed content.
+    def project_out_of_date?
+      @project.new_record? or @project.mod_date.blank? or @project.mod_date < project_mod_date.to_i
+    end
+
+    def init_project_mod_date
+      @project_mod_date = if project_out_of_date?
+        @project.mod_date = project_mod_date
+        @result.merge! "new_project_mod_date" => @project.mod_date.to_s
       else
-        @project.save.ifTrue do
-          meta_project = @project_metadata[:project]
-          meta_owner = @project_metadata[:owner]
-          update_xml :project, :id => @project.id, :name => meta_project[:name]
-          update_xml :owner,   :id => @project.id, :name => meta_owner[:name]
-        end
+        @result.merge! "project_mod_date" => @project.mod_date.to_s, "message" => "project already up to date"
+        nil
       end
     end
 
-    # Save the project content after saving the project if it needs to be saved.
+    # Add a ProjectContent record, but only if the mod_date was updated.
     def save_content
-      if save_project
-        meta_owner = @project_metadata[:owner]
-        @content = Bookshelf::ProjectContent.new({ project_id: @project.id, body: @project_xml, created_by: meta_owner[:id] })
-        @content.save
-      end
+      return true unless @result["new_project_mod_date"].present?
+      @content = Bookshelf::ProjectContent.new({
+        project_id: @project.id,
+        body: @project_xml,
+        created_by: meta_owner[:id]
+      })
+      (!!@content.save).ifTrue { @result.merge! "new_content_inserted" => true }
     end
-
-    #def projects
-    #  respond_to do |format|
-    #    format.xml { render xml: Part.all }
-    #  end
-    #end
-    #
-    #def project
-    #  respond_to do |format|
-    #    format.xml { render xml: Part.all }
-    #  end
-    #end
-    #
   end
 end

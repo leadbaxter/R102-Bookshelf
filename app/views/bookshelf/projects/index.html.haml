@@ -2,10 +2,11 @@
 
 %table
   %tr
-    %th Name
+    %th Project Number
+    %th Project Name
     %th Created by
-    %th Content
     %th Archived
+    %th Mod Date
     %th Created at
     %th
     %th
@@ -13,10 +14,11 @@
 
   - @projects.each do |project|
     %tr
-      %td= project.name
+      %td= project.project_number
+      %td= project.project_name
       %td= project.created_by
-      %td= project.content_id
       %td= project.archived
+      %td= project.mod_date
       %td= project.created_at
       %td= link_to 'Show', project
       %td= link_to 'Edit', edit_project_path(project)

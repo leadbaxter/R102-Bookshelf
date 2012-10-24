@@ -18,6 +18,14 @@ module Bookshelf
       g.helper_specs false
     end
 
+    initializer 'activesupport.dependencies.autoload_paths', :before => :set_autoload_paths do |app|
+      ActiveSupport::Dependencies.autoload_paths << "#{root.join('lib', 'autoload')}"
+    end
+
+    initializer 'activesupport.dependencies.autoload_paths', :after => :set_autoload_paths do |app|
+      require "#{root.join('lib', 'boolean')}"
+    end
+
     initializer 'application_helper' do |app|
       ActionView::Base.send(:include, ::ApplicationHelper)
     end
