@@ -1,0 +1,32 @@
+%h1 Project Contents
+
+%table
+  %tr
+    %th Id
+    %th Project Id
+    %th Created By
+    %th Body
+    %th Comments
+    %th Created at
+    %th Updated at
+    %th
+    %th
+    %th
+
+  - @contents.each do |content|
+    %tr
+      %td= content.id
+      %td= content.project_id
+      %td= content.created_by
+      - index1 = content.body.index '<project>'
+      - index2 = content.body.index '</project>'
+      %td= content.body[(index1 + 9)..index2]
+      %td= content.comments
+      %td= content.created_at
+      %td= content.updated_at
+      %td= link_to 'Show', content
+      %td= link_to 'Edit', edit_project_content_path(content)
+      %td= link_to 'Destroy', content, :confirm => 'Are you sure?', :method => :delete
+
+%br
+=# link_to 'New Project', new_project_path
