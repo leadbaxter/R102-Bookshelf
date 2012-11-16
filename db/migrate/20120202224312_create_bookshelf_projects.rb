@@ -3,7 +3,7 @@ class CreateBookshelfProjects < ActiveRecord::Migration
     create_table :bookshelf_projects do |t|
       t.string :project_name
       t.string :project_number
-      t.datetime :mod_date
+      t.string :mod_date
       t.string :created_by
       t.boolean :archived
 

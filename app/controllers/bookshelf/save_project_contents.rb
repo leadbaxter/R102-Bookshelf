@@ -15,7 +15,7 @@ module Bookshelf
     end
 
     def project_mod_date
-      params[:project].try(:[], :modDate).try(:[], :value).to_i
+      params[:project].try(:[], :modDate).try(:[], :value)
     end
 
     # Process the params. Set the error indicator if the params don't have project metadata.
@@ -52,15 +52,15 @@ module Bookshelf
 
     # Answer true if the project's mod_date is out of date in respect to the mod_date of the POSTed content.
     def project_out_of_date?
-      @project.new_record? or @project.mod_date.blank? or @project.mod_date < project_mod_date.to_i
+      @project.new_record? or @project.mod_date.blank? or @project.mod_date.to_i < project_mod_date.to_i
     end
 
     def init_project_mod_date
       @project_mod_date = if project_out_of_date?
         @project.mod_date = project_mod_date
-        @result.merge! "new_project_mod_date" => @project.mod_date.to_i
+        @result.merge! "new_project_mod_date" => @project.mod_date
       else
-        @result.merge! "project_mod_date" => @project.mod_date.to_i, "message" => "project already up to date"
+        @result.merge! "project_mod_date" => @project.mod_date, "message" => "project already up to date"
         nil
       end
     end
