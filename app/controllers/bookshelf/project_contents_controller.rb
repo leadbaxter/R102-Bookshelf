@@ -9,12 +9,18 @@ module Bookshelf
     # GET /project_contents.xml?project_number=00001 # response is project.project_content.body (last, xml)
     # GET /project_contents.json?project_number=00001 # response is project.project_content.body (last)
     #
+    # GET /project_contents.xml?project_key={KEY} # response is project.project_content.body (last, xml)
+    # GET /project_contents.json?project_key={KEY} # response is project.project_content.body (last)
+    #
     def index
       @contents = if params[:project_id].present?
         @project = Project.find(params[:project_id])
         @project.contents.all
       elsif params[:project_number].present?
         @project = Project.find_by_project_number(params[:project_number])
+        ProjectContent.find_all_by_project_id(@project.id, :order => :created_at).last
+      elsif params[:project_key].present?
+        @project = Project.find_by_project_key(params[:project_key])
         ProjectContent.find_all_by_project_id(@project.id, :order => :created_at).last
       else
         ProjectContent.all

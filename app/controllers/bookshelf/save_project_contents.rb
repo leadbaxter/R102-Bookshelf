@@ -39,12 +39,14 @@ module Bookshelf
       end
     end
 
-    # Answer the project found identified by the project number, creating a new one if necessary.
+    # Answer the project found identified by the project key, creating a new one if necessary.
     def find_project
       unless @errors_xml.present?
-        @project = Bookshelf::Project.find_by_project_number(meta_project[:id]) || Bookshelf::Project.new({
-            project_number: meta_project[:id],
+        @project = Bookshelf::Project.find_by_project_key(meta_project[:id]) || Bookshelf::Project.new({
+            project_key: meta_project[:id],
+            project_number: meta_project[:number],
             project_name: meta_project[:name],
+            project_type: meta_project[:type],
             created_by: meta_owner[:id]
         })
       end
