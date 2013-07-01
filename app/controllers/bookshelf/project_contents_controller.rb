@@ -2,7 +2,7 @@ module Bookshelf
   class ProjectContentsController < ApplicationController
 
     before_filter :check_params, :only => [:create]
-    
+
     # GET /project_contents      # response is all project contents (html)
     # GET /project_contents.json # response is all project contents (json)
     #

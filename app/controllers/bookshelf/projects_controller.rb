@@ -2,18 +2,31 @@ module Bookshelf
 
   class ProjectsController < ApplicationController
 
+    include PortalClientMixin
+    before_filter :login_portal_user, :only => [:index]
+
     load_and_authorize_resource :class => 'Bookshelf::Project' # cancan authorizes that the user has access to the project resources
 
     # GET /projects
     # GET /projects.json
     def index
+      select_user_projects if portal_authorized?
       respond_to do |format|
-        format.html # index.html.haml
-        format.json { render :json => @projects }
+        if portal_authorized?
+          format.html # index.html.haml
+          format.json { render :json => @projects }
+        else
+          format.html # index.html.haml
+          format.json { render :json => error_code, :status => :unprocessable_entity }
+        end
       end
     end
-  
-    # GET /projects/1
+
+    def select_user_projects
+      @projects.select! { |project| project.created_by == remote_user.user.key }
+    end
+
+      # GET /projects/1
     # GET /projects/1.json
     def show
       respond_to do |format|
