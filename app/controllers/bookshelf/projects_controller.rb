@@ -10,7 +10,7 @@ module Bookshelf
     # GET /projects
     # GET /projects.json
     def index
-      select_user_projects if portal_authorized?
+      select_projects_by_user.select_projects_by_product if portal_authorized?
       respond_to do |format|
         if portal_authorized?
           format.html # index.html.haml
@@ -22,8 +22,14 @@ module Bookshelf
       end
     end
 
-    def select_user_projects
+    def select_projects_by_user
       @projects.select! { |project| project.created_by == remote_user.user.key }
+      self
+    end
+
+    def select_projects_by_product
+      @projects.select! { |project| project.project_type == remote_user.product_name }
+      self
     end
 
       # GET /projects/1
