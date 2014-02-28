@@ -2,9 +2,6 @@ module Bookshelf
 
   class ProjectsController < ApplicationController
 
-    include PortalClientMixin
-    before_filter :login_portal_user, :only => [:index]
-
     load_and_authorize_resource :class => 'Bookshelf::Project' # cancan authorizes that the user has access to the project resources
 
     # GET /projects

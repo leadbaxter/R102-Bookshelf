@@ -3,9 +3,6 @@ module Bookshelf
 
     before_filter :check_params, :only => [:create]
 
-    include PortalClientMixin
-    before_filter :login_portal_user, :only => [:index]
-
     # GET /project_contents      # response is all project contents (html)
     # GET /project_contents.json # response is all project contents (json)
     #
