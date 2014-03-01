@@ -13,17 +13,7 @@ module Bookshelf
       end
     end
 
-    def select_projects_by_user
-      @projects.select! { |project| project.created_by == remote_user.user.key }
-      self
-    end
-
-    def select_projects_by_product
-      @projects.select! { |project| project.project_type == remote_user.product_name }
-      self
-    end
-
-      # GET /projects/1
+    # GET /projects/1
     # GET /projects/1.json
     def show
       respond_to do |format|
