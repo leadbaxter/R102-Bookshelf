@@ -7,15 +7,9 @@ module Bookshelf
     # GET /projects
     # GET /projects.json
     def index
-      select_projects_by_user.select_projects_by_product if portal_authorized?
       respond_to do |format|
-        if portal_authorized?
-          format.html # index.html.haml
-          format.json { render :json => @projects }
-        else
-          format.html # index.html.haml
-          format.json { render :json => error_code, :status => :unprocessable_entity }
-        end
+        format.html # index.html.haml
+        format.json { render :json => error_code, :status => :unprocessable_entity }
       end
     end
 
