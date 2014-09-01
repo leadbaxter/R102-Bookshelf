@@ -4,19 +4,19 @@ module Bookshelf
   
     # If you're using a named scope that includes a changing variable you need to wrap it in a lambda
     # This avoids the query being cached thus becoming unaffected by changes (i.e. Time.now is constant)
-    scope :not_expired, lambda {
+    scope :not_expired, -> {
       news_items = Arel::Table.new(NewsItem.table_name)
       where(news_items[:expire_at].eq(nil).or(news_items[:expire_at].gt(Time.now)))
     }
-    scope :published, lambda {
+    scope :published, -> {
       not_expired.where("publish_at < ?", Time.now)
     }
-    scope :latest, lambda { |*l_params|
+    scope :latest, -> (*l_params) {
       published.limit( l_params.first || 10)
     }
   
     # rejects any page that has not been translated to the current locale.
-    scope :translated, lambda {
+    scope :translated, -> {
       pages = Arel::Table.new(NewsItem.table_name)
       translations = Arel::Table.new(NewsItem.translations_table_name)
   
