@@ -16,7 +16,7 @@ Gem::Specification.new do |s|
   s.files = Dir['{app,config,db,lib}/**/*'] + %w(MIT-LICENSE Rakefile README.rdoc)
   s.test_files = Dir['test/**/*']
 
-  s.add_dependency 'rails', '~> 4.1'
+  s.add_dependency 'rails', '~> 4.1.0'
   # s.add_dependency "jquery-rails"
   s.add_dependency 'haml-rails'
   s.add_dependency 'sass-rails', '~> 4.0.3'

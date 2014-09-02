@@ -43,7 +43,7 @@ module Bookshelf
           format.html { redirect_to @news_item, :notice => 'News item was successfully created.' }
           format.json { render :json => @news_item, :status => :created, :location => @news_item }
         else
-          format.html { render action: "new" }
+          format.html { render action: 'new' }
           format.json { render :json => @news_item.errors, :status => :unprocessable_entity }
         end
       end
@@ -57,7 +57,7 @@ module Bookshelf
           format.html { redirect_to @news_item, :notice => 'News item was successfully updated.' }
           format.json { head :ok }
         else
-          format.html { render action: "edit" }
+          format.html { render action: 'edit' }
           format.json { render :json => @news_item.errors, :status => :unprocessable_entity }
         end
       end

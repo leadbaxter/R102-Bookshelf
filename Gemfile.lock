@@ -1,10 +1,10 @@
 PATH
   remote: .
   specs:
-    bookshelf (0.0.5)
+    bookshelf (0.0.6)
       cancan
       haml-rails
-      rails (~> 4.1)
+      rails (~> 4.1.0)
       sass-rails (~> 4.0.3)
 
 GEM
